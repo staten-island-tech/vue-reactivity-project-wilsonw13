@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+    <div class="header-textbox">
+      <h1 class="header">Pizza Generator</h1>
+    </div>
+    <form id="search-form" class="search-form">
+      <input
+        type="text"
+        class="search-area"
+        placeholder="Search Toppings ..."
+      />
+      <input type="button" class="search-button" value="Search"/>
+    </form>
   </div>
 </template>
 
@@ -33,28 +44,21 @@ export default {
   --link-text: var(--white);
   --nav-line: var(--white);
   --header-btn: var(--white);
-  --footer-icon: var(--light-black);
-  --h1: 7.594rem;
-  --h2: 5.063rem;
-  --h3: 3.375rem;
-  --h4: 2.25rem;
-  --h5: 1.5rem;
-  --smallText: 0.8rem;
+  --h1: 8rem;
+  --h2: 5rem;
   --containerPadding: 2.5%;
   --headerHeight: 3rem;
-  --borderRadius: 10px
+  --borderRadius: 10px;
+  --primaryFont: "Lato", sans-serif;
+  --secondaryFont: "Playfair Display", serif;
 }
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  font-weight: 400;
 }
 
-#app {
-  font-weight: 400;
-  line-height: 1.75;
-  background-color: var(--background-primary);
-  color: var(--text-primary);
-  margin: 0;
-  font-family: "Crimson Text",serif
+h1 {
+  font-family: var(--secondaryFont);
 }
 </style>

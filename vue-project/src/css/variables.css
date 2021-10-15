@@ -1,0 +1,49 @@
+:root {
+  --navy-blue: #243156;
+  --gray: #6b7b95;
+  --light-blue: #a4bbcc;
+  --white: #fff;
+  --pink: #e2b4bd;
+  --copper: #936264;
+  --burgundy: #9a5b62;
+  --website-bg: var(--pink);
+  --search-button: var(--burgundy);
+  --h1: 6rem;
+  --input: 3rem;
+  --p: 3rem;
+  --containerPadding: 2.5%;
+  --headerHeight: 3rem;
+  --borderRadius: 10px;
+  --primaryFont: "Lato", sans-serif;
+  --secondaryFont: "Playfair Display", serif;
+
+  /* Measurements */
+}
+
+*,
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: var(--website-bg);
+}
+
+h1 {
+  font-family: var(--primaryFont);
+  font-size: var(--h1);
+}
+
+p {
+  font-family: var(--secondaryFont);
+  font-size: var(--p);
+}

@@ -11,11 +11,8 @@
         </form>
         <div class="toppings-container">
           <img v-for="(object) in responseArray"
-          :key="object.id"
-          src="object.urls.small" alt="">
-          <img src="https://images.unsplash.com/photo-1542913235-1f46ce06443d?ixid=MnwyNjcxMDV8MHwxfHNlYXJjaHwxfHxtdXNocm9vbXxlbnwwfHx8fDE2MzQwODE0MDg&ixlib=rb-1.2.1&q=75&ar=1:1&fit=crop" alt="">
-          <img src="https://images.unsplash.com/photo-1543904856-8257e34283d9?ixid=MnwyNjcxMDV8MHwxfHNlYXJjaHwyfHxtdXNocm9vbXxlbnwwfHx8fDE2MzQwODE0MDg&ixlib=rb-1.2.1&q=75&ar=1:1&fit=crop" alt="">
-          <img src="https://images.unsplash.com/photo-1543904856-8257e34283d9?ixid=MnwyNjcxMDV8MHwxfHNlYXJjaHwyfHxtdXNocm9vbXxlbnwwfHx8fDE2MzQwODE0MDg&ixlib=rb-1.2.1&q=75&ar=1:1&fit=crop" alt="">
+            :key="object.id"
+            :src="object.urls.raw + '&q=75&ar=1:1&fit=crop'" :alt="object.description">
         </div>
       </div>
       <div class="right-container">

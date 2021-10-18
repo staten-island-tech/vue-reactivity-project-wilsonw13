@@ -60,6 +60,8 @@ export default {
           headers: {"Authorization": apiKey},
         });
         const DataJSON = await response.json();
+
+        if (!DataJSON.photos.length) return;
         this.apiResponseArray = DataJSON.photos;
         this.previousQuery = query;
 
@@ -75,16 +77,22 @@ export default {
       }
     },
     getClickPosition(event) {
-      const x = event.clientX;
-      const y = event.clientY;
+      // elRect = the properties of the (rectangle) div element
+      const elRect = event.target.getBoundingClientRect();
+      const pixelsX = event.clientX - elRect.left;
+      const pixelsY = event.clientY - elRect.top;
 
-      console.log(`Current Position: (${x}, ${y})`);
+      const percentX = Math.round(pixelsX * 100 / elRect.width);
+      const percentY = Math.round(pixelsY * 100 / elRect.height);
+
+      console.log(`Current Position: (${percentX}%, ${percentY}%)`);
     }
   },
   computed: {
     // If there has been no previous query, return a sample array. Otherwise, return new array from API.
     currentResponseArray() {
-      if (!this.previousQuery) return this.sampleResponseArray;else return this.apiResponseArray;
+      if (!this.previousQuery) return this.sampleResponseArray;
+      else return this.apiResponseArray;
     }
   }
 }

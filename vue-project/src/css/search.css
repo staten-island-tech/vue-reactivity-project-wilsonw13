@@ -68,4 +68,10 @@
   width: 20%;
   margin: 1.5rem;
   cursor: pointer;
+
+  transition: all 0.2s;
+}
+
+.toppings-container > img:hover {
+  transform: scale(1.2);
 }

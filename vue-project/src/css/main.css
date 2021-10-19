@@ -39,6 +39,6 @@
 }
 
 .topping-selected {
-  border-radius: 25%;
-  border: solid 1rem;
+  border-radius: 20%;
+  border: solid 0.75rem;
 }

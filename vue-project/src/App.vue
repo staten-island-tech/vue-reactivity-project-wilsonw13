@@ -5,9 +5,10 @@
     </div>
     <div class="body">
       <div class="left-container">
-        <form id="search-bar" class="search-bar">
+        <form id="search-bar" class="search-bar"
+        @submit.prevent="getSearchData(searchQuery)">
           <input type="text" class="search-area" placeholder="Search Toppings" v-model="searchQuery"/>
-          <input type="button" class="search-button" value="Search" @click="getSearchData(searchQuery)"/>
+          <input type="submit" class="search-button" value="Search"/>
         </form>
         <div class="toppings-container">
           <img v-for="object in currentResponseArray"
@@ -49,8 +50,11 @@ export default {
 
       searchQuery: null,
       previousQuery: null,
+
       apiResponseArray: null,
-      currentTopping: null,
+      historyArray: [],
+
+      currentToppingObject: null,
 
       apiRequestsRemaining: null,
       apiHeaders: null,
@@ -102,13 +106,18 @@ export default {
 
       console.log(`Current Position: (${percentX}%, ${percentY}%)`);
     },
-    changeClickedTopping(event, photoObject) {
+    changeClickedTopping(event, toppingObject) {
       const selectedToppingsHTML = document.querySelectorAll(".topping-selected");
 
       selectedToppingsHTML.forEach(e => e.classList.remove("topping-selected"));
       
       event.target.classList.add("topping-selected");
-      this.currentTopping = photoObject;
+      this.currentToppingObject = toppingObject;
+    },
+    imageOnPizza(x, y, toppingObject) {
+      // Push in data object with x, y, toppingObject as key/value pairs
+      this.historyArray.push();
+      console.log(x, y, toppingObject);
     }
   },
   computed: {
@@ -122,5 +131,5 @@ export default {
 </script>
 
 <style>
-@import "./css/style.css";
+@import "./css/main.css";
 </style>

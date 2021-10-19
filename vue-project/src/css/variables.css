@@ -11,13 +11,9 @@
   --h1: 6rem;
   --input: 3rem;
   --p: 3rem;
-  --containerPadding: 2.5%;
-  --headerHeight: 3rem;
-  --borderRadius: 10px;
+  --borderRadius: 1rem;
   --primaryFont: "Lato", sans-serif;
   --secondaryFont: "Playfair Display", serif;
-
-  /* Measurements */
 }
 
 *,

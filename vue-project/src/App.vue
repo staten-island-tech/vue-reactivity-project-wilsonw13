@@ -12,12 +12,26 @@
         <div class="toppings-container">
           <img v-for="object in currentResponseArray"
             :key="object.id"
-            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'">
+            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+            @click="changeClickedTopping($event, object)"
+            class="topping-image">
         </div>
       </div>
       <div class="right-container">
-        <div class="pizza-container" @click="getClickPosition($event)"></div>
-        <div class="history-container"></div>
+        <div class="pizza-container">
+          <img 
+          class="pizza"
+          src="./assets/no-toppings-pizza.png" 
+          alt="pizza"
+          @click="getClickPosition($event)">
+        </div>
+        <div class="history-container">
+          <img v-for="object in sampleResponseArray"
+            :key="object.id"
+            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+            @click="changeClickedTopping($event, object)"
+            class="topping-image">
+        </div>
       </div>
     </div>
   </div>
@@ -36,6 +50,7 @@ export default {
       searchQuery: null,
       previousQuery: null,
       apiResponseArray: null,
+      currentTopping: null,
 
       apiRequestsRemaining: null,
       apiHeaders: null,
@@ -77,7 +92,7 @@ export default {
       }
     },
     getClickPosition(event) {
-      // elRect = the properties of the (rectangle) div element
+      // elRect = the properties of the (rectangle) element
       const elRect = event.target.getBoundingClientRect();
       const pixelsX = event.clientX - elRect.left;
       const pixelsY = event.clientY - elRect.top;
@@ -86,6 +101,14 @@ export default {
       const percentY = Math.round(pixelsY * 100 / elRect.height);
 
       console.log(`Current Position: (${percentX}%, ${percentY}%)`);
+    },
+    changeClickedTopping(event, photoObject) {
+      const selectedToppingsHTML = document.querySelectorAll(".topping-selected");
+
+      selectedToppingsHTML.forEach(e => e.classList.remove("topping-selected"));
+      
+      event.target.classList.add("topping-selected");
+      this.currentTopping = photoObject;
     }
   },
   computed: {

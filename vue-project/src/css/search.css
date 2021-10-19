@@ -1,7 +1,7 @@
 .left-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -9,7 +9,7 @@
   height: 8rem;
   width: 100%;
   position: relative;
-  margin: 2rem auto;
+  margin: 1rem auto;
 
   display: flex;
   justify-content: space-evenly;
@@ -55,7 +55,7 @@
 }
 
 .toppings-container {
-  height: 80%;
+  height: calc(100% - 8rem);
   width: 100%;
 
   display: flex;
@@ -67,11 +67,4 @@
 .toppings-container > img {
   width: 20%;
   margin: 1.5rem;
-  cursor: pointer;
-
-  transition: all 0.2s;
-}
-
-.toppings-container > img:hover {
-  transform: scale(1.2);
 }

@@ -24,12 +24,12 @@
           class="pizza"
           src="./assets/no-toppings-pizza.png" 
           alt="pizza"
-          @click="getClickPosition($event)">
+          @click="imageOnPizza($event)">
         </div>
         <div class="history-container">
-          <img v-for="object in sampleResponseArray"
-            :key="object.id"
-            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+          <img v-for="object in historyArray"
+            :key="object.imageObject.id"
+            :src="object.imageObject.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
             @click="changeClickedTopping($event, object)"
             class="topping-image">
         </div>
@@ -95,8 +95,9 @@ export default {
         // alert("Great Error Handling :D - An error as occured!");
       }
     },
-    getClickPosition(event) {
+    imageOnPizza(event, currentTopping = this.currentToppingObject) {
       // elRect = the properties of the (rectangle) element
+      // X is from left, Y is from top
       const elRect = event.target.getBoundingClientRect();
       const pixelsX = event.clientX - elRect.left;
       const pixelsY = event.clientY - elRect.top;
@@ -104,7 +105,17 @@ export default {
       const percentX = Math.round(pixelsX * 100 / elRect.width);
       const percentY = Math.round(pixelsY * 100 / elRect.height);
 
-      console.log(`Current Position: (${percentX}%, ${percentY}%)`);
+      this.historyArray.forEach(el => {
+        if (el.imageObject != currentTopping) {
+          this.historyArray.push({
+          posLeft: percentX,
+          posTop: percentY,
+          imageObject: currentTopping,
+          });
+        }
+      })
+
+      console.log(percentX, percentY, currentTopping);
     },
     changeClickedTopping(event, toppingObject) {
       const selectedToppingsHTML = document.querySelectorAll(".topping-selected");
@@ -114,11 +125,6 @@ export default {
       event.target.classList.add("topping-selected");
       this.currentToppingObject = toppingObject;
     },
-    imageOnPizza(x, y, toppingObject) {
-      // Push in data object with x, y, toppingObject as key/value pairs
-      this.historyArray.push();
-      console.log(x, y, toppingObject);
-    }
   },
   computed: {
     // If there has been no previous query, return a sample array. Otherwise, return new array from API.

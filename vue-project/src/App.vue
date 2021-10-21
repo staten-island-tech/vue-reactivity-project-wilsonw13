@@ -25,11 +25,16 @@
           src="./assets/no-toppings-pizza.png" 
           alt="pizza"
           @click="imageOnPizza($event)">
+          <img v-for="(object, index) in pizzaArray"
+            :key="object.imageObject.id + '-' + index"
+            :src="object.imageObject.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+            :style="{top: object.posTop, left: object.posLeft}"
+            class="pizza-image">
         </div>
         <div class="history-container">
           <img v-for="object in historyArray"
-            :key="object.imageObject.id"
-            :src="object.imageObject.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+            :key="object.id"
+            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
             @click="changeClickedTopping($event, object)"
             class="topping-image">
         </div>
@@ -50,14 +55,14 @@ export default {
 
       searchQuery: null,
       previousQuery: null,
+      apiRequestsRemaining: null,
+      apiHeaders: null,
 
       apiResponseArray: null,
       historyArray: [],
+      pizzaArray: [],
 
       currentToppingObject: null,
-
-      apiRequestsRemaining: null,
-      apiHeaders: null,
 
     }
   },
@@ -95,7 +100,7 @@ export default {
         // alert("Great Error Handling :D - An error as occured!");
       }
     },
-    imageOnPizza(event, currentTopping = this.currentToppingObject) {
+    imageOnPizza(event, currentToppingObj = this.currentToppingObject) {
       // elRect = the properties of the (rectangle) element
       // X is from left, Y is from top
       const elRect = event.target.getBoundingClientRect();
@@ -105,17 +110,25 @@ export default {
       const percentX = Math.round(pixelsX * 100 / elRect.width);
       const percentY = Math.round(pixelsY * 100 / elRect.height);
 
-      this.historyArray.forEach(el => {
-        if (el.imageObject != currentTopping) {
-          this.historyArray.push({
-          posLeft: percentX,
-          posTop: percentY,
-          imageObject: currentTopping,
-          });
+      let isDuplicateImage = false;
+
+      this.historyArray.forEach(obj => {
+        if (obj === currentToppingObj) {
+          isDuplicateImage = true;
         }
       })
 
-      console.log(percentX, percentY, currentTopping);
+      if (currentToppingObj != null) {
+        if (!isDuplicateImage) {
+        this.historyArray.push(currentToppingObj);
+        }
+        
+        this.pizzaArray.push({
+        posLeft: percentX,
+        posTop: percentY,
+        imageObject: currentToppingObj,
+        });
+      }
     },
     changeClickedTopping(event, toppingObject) {
       const selectedToppingsHTML = document.querySelectorAll(".topping-selected");

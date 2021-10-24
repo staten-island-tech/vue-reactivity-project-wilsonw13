@@ -5,38 +5,59 @@
     </div>
     <div class="body">
       <div class="left-container">
-        <form id="search-bar" class="search-bar"
-        @submit.prevent="getSearchData(searchQuery)">
-          <input type="text" class="search-area" placeholder="Search Toppings" v-model="searchQuery"/>
-          <input type="submit" class="search-button" value="Search"/>
+        <form
+          id="search-bar"
+          class="search-bar"
+          @submit.prevent="getSearchData(searchQuery)"
+        >
+          <input
+            type="text"
+            class="search-area"
+            placeholder="Search Toppings"
+            v-model="searchQuery"
+          />
+          <input type="submit" class="search-button" value="Search" />
         </form>
         <div class="toppings-container">
-          <img v-for="object in currentResponseArray"
+          <img
+            v-for="object in currentResponseArray"
             :key="object.id"
-            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+            :src="
+              object.src.original +
+                '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'
+            "
             @click="changeClickedTopping($event, object)"
-            class="topping-image">
+            class="topping-image"
+          />
         </div>
       </div>
       <div class="right-container">
-        <div class="pizza-container">
-          <img 
-          class="pizza"
-          src="./assets/no-toppings-pizza.png" 
-          alt="pizza"
-          @click="imageOnPizza($event)">
-          <img v-for="(object, index) in pizzaArray"
+        <div class="pizza-container" @click="imageOnPizza($event)">
+          <img
+            class="pizza"
+            src="./assets/no-toppings-pizza.png"
+            alt="pizza"
+          />
+          <div class="pizza-image-container">
+            <img class="pizza-images"
+            v-for="(object, index) in pizzaArray"
             :key="object.imageObject.id + '-' + index"
             :src="object.imageObject.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
-            :style="{top: object.posTop, left: object.posLeft}"
-            class="pizza-image">
+            :style="object.style"
+            >
+          </div>
         </div>
         <div class="history-container">
-          <img v-for="object in historyArray"
+          <img
+            class="topping-image"
+            v-for="object in historyArray"
             :key="object.id"
-            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
+            :src="
+              object.src.original +
+                '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'
+            "
             @click="changeClickedTopping($event, object)"
-            class="topping-image">
+          />
         </div>
       </div>
     </div>
@@ -44,13 +65,13 @@
 </template>
 
 <script>
-import response from "./assets/response.json"
-import apiKey from "./assets/apiKey.js"
+import response from "./assets/response.json";
+import apiKey from "./assets/apiKey.js";
 
 export default {
-  name: 'App',
-  data(){
-    return{
+  name: "App",
+  data() {
+    return {
       sampleResponseArray: response.photos,
 
       searchQuery: null,
@@ -63,11 +84,10 @@ export default {
       pizzaArray: [],
 
       currentToppingObject: null,
-
-    }
+    };
   },
-  methods:{
-    async getSearchData (query = "pepperoni", page = 1) {   
+  methods: {
+    async getSearchData(query = "pepperoni", page = 1) {
       switch (query) {
         case this.previousQuery:
           console.log("Error: Same thing was searched");
@@ -76,13 +96,16 @@ export default {
           console.log("Error: PINEAPPLE IS NOT A VALID TOPPING!");
           return;
         case "":
-          console.log("Error: Nothing was searched")
+          console.log("Error: Nothing was searched");
           return;
       }
       try {
-        const response = await fetch(`https://api.pexels.com/v1/search?query=${query}&page=${page}&per_page=12`, {
-          headers: {"Authorization": apiKey},
-        });
+        const response = await fetch(
+          `https://api.pexels.com/v1/search?query=${query}&page=${page}&per_page=12`,
+          {
+            headers: { Authorization: apiKey },
+          }
+        );
         const DataJSON = await response.json();
 
         if (!DataJSON.photos.length) return;
@@ -94,7 +117,6 @@ export default {
         }
         this.apiHeaders = response.headers.entries();
         console.log(this.apiHeaders); */
-
       } catch (error) {
         console.log(error);
         // alert("Great Error Handling :D - An error as occured!");
@@ -107,34 +129,40 @@ export default {
       const pixelsX = event.clientX - elRect.left;
       const pixelsY = event.clientY - elRect.top;
 
-      const percentX = Math.round(pixelsX * 100 / elRect.width);
-      const percentY = Math.round(pixelsY * 100 / elRect.height);
+      const percentX = Math.round((pixelsX * 100) / elRect.width);
+      const percentY = Math.round((pixelsY * 100) / elRect.height);
 
       let isDuplicateImage = false;
 
-      this.historyArray.forEach(obj => {
+      this.historyArray.forEach((obj) => {
         if (obj === currentToppingObj) {
           isDuplicateImage = true;
         }
-      })
+      });
 
       if (currentToppingObj != null) {
         if (!isDuplicateImage) {
-        this.historyArray.push(currentToppingObj);
+          this.historyArray.push(currentToppingObj);
         }
-        
+
         this.pizzaArray.push({
-        posLeft: percentX,
-        posTop: percentY,
-        imageObject: currentToppingObj,
+          style: {
+            left: `${percentX}%`,
+            top: `${percentY}%`,
+          },
+          imageObject: currentToppingObj,
         });
       }
     },
     changeClickedTopping(event, toppingObject) {
-      const selectedToppingsHTML = document.querySelectorAll(".topping-selected");
+      const selectedToppingsHTML = document.querySelectorAll(
+        ".topping-selected"
+      );
 
-      selectedToppingsHTML.forEach(e => e.classList.remove("topping-selected"));
-      
+      selectedToppingsHTML.forEach((e) =>
+        e.classList.remove("topping-selected")
+      );
+
       event.target.classList.add("topping-selected");
       this.currentToppingObject = toppingObject;
     },
@@ -144,9 +172,9 @@ export default {
     currentResponseArray() {
       if (!this.previousQuery) return this.sampleResponseArray;
       else return this.apiResponseArray;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>

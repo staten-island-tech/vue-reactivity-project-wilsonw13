@@ -16,16 +16,13 @@
             placeholder="Search Toppings"
             v-model="searchQuery"
           />
-          <input type="submit" class="search-button" value="Search" />
+          <input type="submit" class="search-button" value="Search"/>
         </form>
         <div class="toppings-container">
           <img
             v-for="object in currentResponseArray"
             :key="object.id"
-            :src="
-              object.src.original +
-                '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'
-            "
+            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
             @click="changeClickedTopping($event, object)"
             class="topping-image"
           />
@@ -52,10 +49,7 @@
             class="topping-image"
             v-for="object in historyArray"
             :key="object.id"
-            :src="
-              object.src.original +
-                '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'
-            "
+            :src="object.src.original + '?auto=compress&cs=tinysrgb&q=75&ar=1:1&fit=crop'"
             @click="changeClickedTopping($event, object)"
           />
         </div>
@@ -125,7 +119,7 @@ export default {
     imageOnPizza(event, currentToppingObj = this.currentToppingObject) {
       // elRect = the properties of the (rectangle) element
       // X is from left, Y is from top
-      const elRect = event.target.getBoundingClientRect();
+      const elRect = event.currentTarget.getBoundingClientRect();
       const pixelsX = event.clientX - elRect.left;
       const pixelsY = event.clientY - elRect.top;
 
@@ -134,6 +128,7 @@ export default {
 
       let isDuplicateImage = false;
 
+      // tests if the current topping is already in history array
       this.historyArray.forEach((obj) => {
         if (obj === currentToppingObj) {
           isDuplicateImage = true;
@@ -142,7 +137,8 @@ export default {
 
       if (currentToppingObj != null) {
         if (!isDuplicateImage) {
-          this.historyArray.push(currentToppingObj);
+          // Unshift adds the element to the beginning of the array
+          this.historyArray.unshift(currentToppingObj);
         }
 
         this.pizzaArray.push({

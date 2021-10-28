@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div class="header">
-      <h1 class="header-text">Pizza Generator</h1>
+      <h1 class="header-text">test: {{ pexelsApiKey }}</h1>
+      <!-- <h1 class="header-text">Pizza Generator</h1> -->
     </div>
     <div class="body">
       <div class="left-container">
@@ -78,6 +79,8 @@ export default {
       pizzaArray: [],
 
       currentToppingObject: null,
+
+      pexelsApiKey: process.env.PEXELS_API_KEY,
     };
   },
   methods: {
@@ -171,6 +174,9 @@ export default {
     },
   },
 };
+
+console.log(process.env.PEXELS_API_KEY);
+
 </script>
 
 <style>

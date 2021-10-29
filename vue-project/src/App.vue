@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <div class="header">
-      <h1 class="header-text">test: {{ pexelsApiKey }}</h1>
-      <!-- <h1 class="header-text">Pizza Generator</h1> -->
+      <h1 class="header-text">Pizza Generator</h1>
     </div>
     <div class="body">
       <div class="left-container">
@@ -175,6 +174,8 @@ export default {
   },
 };
 
+console.log(process.env.NODE_ENV);
+console.log(process.env.BASE_URL);
 console.log(process.env.PEXELS_API_KEY);
 
 </script>

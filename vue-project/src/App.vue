@@ -60,7 +60,6 @@
 
 <script>
 import response from "./assets/response.json";
-import apiKey from "./assets/apiKey.js";
 
 export default {
   name: "App",
@@ -79,7 +78,7 @@ export default {
 
       currentToppingObject: null,
 
-      pexelsApiKey: process.env.PEXELS_API_KEY,
+      pexelsApiKey: process.env.VUE_APP_PEXELS_API_KEY,
     };
   },
   methods: {
@@ -99,7 +98,7 @@ export default {
         const response = await fetch(
           `https://api.pexels.com/v1/search?query=${query}&page=${page}&per_page=12`,
           {
-            headers: { Authorization: apiKey },
+            headers: { Authorization: this.pexelsApiKey },
           }
         );
         const DataJSON = await response.json();
@@ -173,10 +172,6 @@ export default {
     },
   },
 };
-
-console.log(process.env.NODE_ENV);
-console.log(process.env.BASE_URL);
-console.log(process.env.PEXELS_API_KEY);
 
 </script>
 

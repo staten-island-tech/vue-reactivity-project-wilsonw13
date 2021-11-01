@@ -7,3 +7,6 @@ Postman: https://web.postman.co/workspace/My-Workspace~debc5dbf-0d3b-45a6-8583-4
 Get click coordinates: https://stackoverflow.com/questions/3234256/find-mouse-position-relative-to-element/49580241
 
 Place elements one on top of the other: https://stackoverflow.com/questions/6780614/css-how-to-position-two-elements-on-top-of-each-other-without-specifying-a-hei
+
+
+Enviornmental Variables: https://stackoverflow.com/questions/50828904/using-environment-variables-with-vue-js

@@ -114,6 +114,8 @@ export default {
         this.apiHeaders = response.headers.entries();
         console.log(this.apiHeaders); */
       } catch (error) {
+        window.alert(`An Error has occured:
+        ${error}`);
         console.log(error);
         // alert("Great Error Handling :D - An error as occured!");
       }

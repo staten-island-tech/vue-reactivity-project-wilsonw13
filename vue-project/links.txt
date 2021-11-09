@@ -8,5 +8,6 @@ Get click coordinates: https://stackoverflow.com/questions/3234256/find-mouse-po
 
 Place elements one on top of the other: https://stackoverflow.com/questions/6780614/css-how-to-position-two-elements-on-top-of-each-other-without-specifying-a-hei
 
-
 Enviornmental Variables: https://stackoverflow.com/questions/50828904/using-environment-variables-with-vue-js
+
+Pexels HTTP Reponse Codes: https://help.pexels.com/hc/en-us/articles/900006376303-What-does-this-HTTP-response-code-mean-

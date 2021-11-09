@@ -98,7 +98,6 @@ export default {
         const response = await fetch(
           `https://api.pexels.com/v1/search?query=${query}&page=${page}&per_page=12`,
           {
-            mode: "no-cors",
             headers: { Authorization: this.pexelsApiKey },
           }
         );

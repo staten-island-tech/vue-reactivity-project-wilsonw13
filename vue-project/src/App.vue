@@ -82,16 +82,16 @@ export default {
     };
   },
   methods: {
-    async getSearchData(query = "pepperoni", page = 1) {
+    async getSearchData(query, page = 1) {
       switch (query) {
         case this.previousQuery:
-          console.log("Error: Same thing was searched");
+          window.alert(`"${this.searchQuery}" was the previous query searched!`);
           return;
         case "pineapple":
-          console.log("Error: PINEAPPLE IS NOT A VALID TOPPING!");
+          window.alert("PINEAPPLE IS NOT A VALID TOPPING!");
           return;
         case "":
-          console.log("Error: Nothing was searched");
+          window.alert("Nothing was searched");
           return;
       }
       try {
@@ -103,7 +103,10 @@ export default {
         );
         const DataJSON = await response.json();
 
-        if (!DataJSON.photos.length) return;
+        if (!DataJSON.photos.length) {
+          window.alert(`The query "${this.searchQuery}" returned no images.`);
+          return;
+        }
         this.apiResponseArray = DataJSON.photos;
         this.previousQuery = query;
 
@@ -116,7 +119,6 @@ export default {
         window.alert(`An Error has occured:
         ${error}`);
         console.log(error);
-        // alert("Great Error Handling :D - An error as occured!");
       }
     },
     imageOnPizza(event, currentToppingObj = this.currentToppingObject) {
